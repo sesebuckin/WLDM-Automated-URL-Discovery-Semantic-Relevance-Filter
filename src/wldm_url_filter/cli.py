@@ -9,7 +9,13 @@ from wldm_url_filter.config import DEFAULT_SETTINGS
 from wldm_url_filter.discovery import discover_candidate_pages
 from wldm_url_filter.ingestion import load_source_domains, load_target_keywords
 from wldm_url_filter.logging_config import configure_logging, get_logger
-from wldm_url_filter.outputs import resolve_run_output_paths, write_candidate_pages_csv
+from wldm_url_filter.models import OptimizationStatus
+from wldm_url_filter.outputs import (
+    resolve_run_output_paths,
+    write_access_reliability_csv,
+    write_candidate_pages_csv,
+)
+from wldm_url_filter.reachability import evaluate_reachability
 
 app = typer.Typer(
     help="Automated URL discovery and semantic relevance filtering.",
@@ -109,15 +115,20 @@ def run(
         typer.echo(str(paths.candidate_pages))
         raise typer.Exit(code=0)
 
-    logger.info("运行入口已初始化，核心流水线尚未实现。")
+    source_domains = load_source_domains(domains)
+    target_keywords = load_target_keywords(keywords)
+    discovery_result = discover_candidate_pages(source_domains, target_keywords, settings=settings)
+    reachability_result = evaluate_reachability(
+        discovery_result.candidates,
+        settings=settings,
+        requester_accepted_failures=requester_accepted_failures,
+    )
+    write_access_reliability_csv(paths.access_reliability, reachability_result.reliability_rows)
+    logger.info("访问可靠性检查完成，已写入访问可靠性结果。")
+    typer.echo(str(paths.access_reliability))
 
-    _ = domains
-    _ = keywords
-    _ = requester_accepted_failures
-    _ = effective_min_recall_samples
-    _ = discovery_only
-    _ = paths
-
+    if reachability_result.optimization_status == OptimizationStatus.OPTIMIZE_AGAIN:
+        raise typer.Exit(code=2)
     raise typer.Exit(code=0)
 
 

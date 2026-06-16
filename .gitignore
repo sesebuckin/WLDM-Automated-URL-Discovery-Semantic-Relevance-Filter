@@ -34,6 +34,14 @@ test-results/
 logs/
 tmp/
 temp/
+data/*.csv
+data/*.tsv
+data/*.xls
+data/*.xlsx
+data/input/*.csv
+data/input/*.tsv
+data/input/*.xls
+data/input/*.xlsx
 data/output/
 data/intermediate/
 *.tmp

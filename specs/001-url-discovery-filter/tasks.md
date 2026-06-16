@@ -105,19 +105,20 @@ failures and reports final success and failure rates by failure type.
 
 ### Tests for User Story 2
 
-- [ ] T031 [P] [US2] Add unit tests for reachability outcome and failure-type classification in `tests/unit/test_reachability.py`
-- [ ] T032 [P] [US2] Add respx-backed integration tests for fast pass success, timeout retest success, blocked access, redirect failure, and unsupported content in `tests/integration/test_reachability_flow.py`
-- [ ] T033 [P] [US2] Add contract tests for access reliability CSV columns and exit status behavior in `tests/contract/test_access_reliability_contract.py`
+- [X] T031 [P] [US2] Add unit tests for reachability outcome and failure-type classification in `tests/unit/test_reachability.py`
+- [X] T032 [P] [US2] Add respx-backed integration tests for fast pass success, timeout retest success, blocked access, redirect failure, and unsupported content in `tests/integration/test_reachability_flow.py`
+- [X] T033 [P] [US2] Add contract tests for access reliability CSV columns and exit status behavior in `tests/contract/test_access_reliability_contract.py`
 
 ### Implementation for User Story 2
 
-- [ ] T034 [US2] Implement fast full-scope reachability pass with bounded concurrency in `src/wldm_url_filter/reachability.py`
-- [ ] T035 [US2] Implement timeout-only retest with lower or no concurrency and longer timeout allowance in `src/wldm_url_filter/reachability.py`
-- [ ] T036 [US2] Implement failure classification for timeout, connection failure, invalid URL, blocked access, redirect failure, and unsupported content in `src/wldm_url_filter/reachability.py`
-- [ ] T037 [US2] Implement final failure-rate calculation and optimization status decision in `src/wldm_url_filter/reachability.py`
-- [ ] T038 [US2] Implement access reliability CSV writing in `src/wldm_url_filter/outputs.py`
-- [ ] T039 [US2] Wire reachability checks and `--requester-accepted-failures` behavior into `src/wldm_url_filter/cli.py`
-- [ ] T040 [US2] Add Simplified Chinese diagnostics for access failures, timeout retests, and optimization-required status in `src/wldm_url_filter/reachability.py`
+- [X] T034 [US2] Implement fast full-scope reachability pass with bounded concurrency in `src/wldm_url_filter/reachability.py`
+- [X] T035 [US2] Implement timeout-only retest with lower or no concurrency and longer timeout allowance in `src/wldm_url_filter/reachability.py`
+- [X] T036 [US2] Implement failure classification for timeout, connection failure, invalid URL, blocked access, redirect failure, and unsupported content in `src/wldm_url_filter/reachability.py`
+- [X] T037 [US2] Implement final failure-rate calculation and optimization status decision in `src/wldm_url_filter/reachability.py`
+- [X] T038 [US2] Implement access reliability CSV writing in `src/wldm_url_filter/outputs.py`
+- [X] T039 [US2] Wire reachability checks and `--requester-accepted-failures` behavior into `src/wldm_url_filter/cli.py`
+- [X] T040 [US2] Add Simplified Chinese diagnostics for access failures, timeout retests, and optimization-required status in `src/wldm_url_filter/reachability.py`
+- [X] T075 [US2] Remove exact duplicate domain rows from `data/input_domains.csv`
 
 **Checkpoint**: User Story 2 is independently testable with mocked URLs and produces the access reliability table.
 
