@@ -1,0 +1,19 @@
+name: wldm-url-filter
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - httpx
+  - beautifulsoup4
+  - pandas
+  - pydantic
+  - typer
+  - rapidfuzz
+  - pytest
+  - coverage
+  - respx
+  - pyyaml
+  - ruff
+  - mypy
+  - pip

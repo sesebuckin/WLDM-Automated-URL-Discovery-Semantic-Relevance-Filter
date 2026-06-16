@@ -1,0 +1,54 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+
+# Virtual environments and local configuration
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Build and release artifacts
+build/
+dist/
+*.egg-info/
+*.whl
+
+# Coverage and test artifacts
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+test-results/
+
+# Logs, temporary files, and intermediate outputs
+*.log
+logs/
+tmp/
+temp/
+data/output/
+data/intermediate/
+*.tmp
+*.bak
+*.swp
+*.swo
+*.intermediate.*
+intermediate/
+
+# Local system and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local agent configuration and cache
+.agents/
+.codex/
+.claude/
