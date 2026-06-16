@@ -79,18 +79,18 @@ depth 3 only when depth-2 recall is below the configured minimum sample count.
 
 ### Tests for User Story 1
 
-- [ ] T022 [P] [US1] Add unit tests for homepage link extraction, candidate URL normalization, and adaptive depth decisions in `tests/unit/test_discovery.py`
-- [ ] T023 [P] [US1] Add respx-backed integration tests for relevant, junk, redirecting, metadata-only, and depth-expansion domains in `tests/integration/test_discovery_flow.py`
-- [ ] T024 [P] [US1] Add CLI contract test for discovery-only dry-run output in `tests/contract/test_cli_discovery_contract.py`
+- [X] T022 [P] [US1] Add unit tests for homepage link extraction, candidate URL normalization, and adaptive depth decisions in `tests/unit/test_discovery.py`
+- [X] T023 [P] [US1] Add respx-backed integration tests for relevant, junk, redirecting, metadata-only, and depth-expansion domains in `tests/integration/test_discovery_flow.py`
+- [X] T024 [P] [US1] Add CLI contract test for discovery-only dry-run output in `tests/contract/test_cli_discovery_contract.py`
 
 ### Implementation for User Story 1
 
-- [ ] T025 [US1] Implement homepage fetching and safe same-site link extraction in `src/wldm_url_filter/discovery.py`
-- [ ] T026 [US1] Implement sitemap and metadata candidate discovery fallbacks in `src/wldm_url_filter/discovery.py`
-- [ ] T027 [US1] Implement candidate prioritization by URL slug, title, primary heading, and core metadata plus adaptive depth behavior that starts at depth 2 and expands to depth 3 only when depth-2 recall is below the configured minimum sample count in `src/wldm_url_filter/discovery.py`
-- [ ] T028 [US1] Connect SourceDomain and TargetKeyword ingestion to candidate discovery orchestration in `src/wldm_url_filter/cli.py`
-- [ ] T029 [US1] Add Simplified Chinese diagnostics for discovery skips, redirects, and inaccessible homepages in `src/wldm_url_filter/discovery.py`
-- [ ] T030 [US1] Document discovery validation behavior in `specs/001-url-discovery-filter/quickstart.md`
+- [X] T025 [US1] Implement homepage fetching and safe same-site link extraction in `src/wldm_url_filter/discovery.py`
+- [X] T026 [US1] Implement sitemap and metadata candidate discovery fallbacks in `src/wldm_url_filter/discovery.py`
+- [X] T027 [US1] Implement candidate prioritization by URL slug, title, primary heading, and core metadata plus adaptive depth behavior that starts at depth 2 and expands to depth 3 only when depth-2 recall is below the configured minimum sample count in `src/wldm_url_filter/discovery.py`
+- [X] T028 [US1] Connect SourceDomain and TargetKeyword ingestion to candidate discovery orchestration in `src/wldm_url_filter/cli.py`
+- [X] T029 [US1] Add Simplified Chinese diagnostics for discovery skips, redirects, and inaccessible homepages in `src/wldm_url_filter/discovery.py`
+- [X] T030 [US1] Document discovery validation behavior in `specs/001-url-discovery-filter/quickstart.md`
 
 **Checkpoint**: User Story 1 is independently testable with mocked sites and produces CandidatePage records.
 

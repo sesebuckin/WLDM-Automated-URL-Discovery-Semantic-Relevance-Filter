@@ -45,11 +45,29 @@ Run the pipeline with the default precision-first crawl settings. Each domain or
 at depth 2. If the depth-2 pass returns fewer than the configured minimum recall sample count N, only that scope
 expands to depth 3. Scopes that already meet N at depth 2 must not expand.
 
+For a discovery-only dry run, write the candidate-page CSV before reachability and relevance stages:
+
+```bash
+conda run -n wldm-url-filter wldm-url-filter run \
+  --domains data/input/Input_Domains.csv \
+  --keywords data/input/Target_Keywords.csv \
+  --output-dir data/output \
+  --run-id sample-discovery \
+  --discovery-only
+```
+
+Expected discovery dry-run deliverable:
+
+- `data/output/sample-discovery_candidate_pages.csv`
+
 When validating a representative sample, verify:
 
 - Relevant sites with enough depth-2 candidates do not perform unnecessary depth-3 crawling.
 - Sites with fewer than N depth-2 candidates are retried at depth 3 before final candidate selection.
 - Depth expansion does not bypass utility-page exclusions or relevance filtering.
+- The candidate dry-run CSV contains deep candidate URLs, not homepage-only placeholders.
+- Redirects are logged in Simplified Chinese and only same-site final URLs are retained.
+- Sitemap and metadata fallbacks can contribute candidate URLs when homepage links are sparse.
 
 ## Validate Accepted URL Output
 

@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import csv
 import re
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
+
+from wldm_url_filter.models import CandidatePage
 
 _RUN_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
 
@@ -19,6 +22,7 @@ class RunOutputPaths:
     accepted_urls: Path
     access_reliability: Path
     processing_summary: Path
+    candidate_pages: Path
 
 
 def generate_run_id(now: datetime | None = None) -> str:
@@ -52,4 +56,35 @@ def resolve_run_output_paths(output_dir: Path, run_id: str | None = None) -> Run
         accepted_urls=prepared_dir / f"{clean_run_id}_accepted_urls.csv",
         access_reliability=prepared_dir / f"{clean_run_id}_access_reliability.csv",
         processing_summary=prepared_dir / f"{clean_run_id}_processing_summary.csv",
+        candidate_pages=prepared_dir / f"{clean_run_id}_candidate_pages.csv",
     )
+
+
+def write_candidate_pages_csv(path: Path, candidates: list[CandidatePage]) -> None:
+    """Write discovery-only candidate pages to a spreadsheet-compatible CSV."""
+    fieldnames = [
+        "Source Domain",
+        "Target URL",
+        "Discovery Source",
+        "URL Slug",
+        "Title",
+        "Primary Heading",
+        "Core Metadata",
+        "Utility Page Flag",
+    ]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for candidate in candidates:
+            writer.writerow(
+                {
+                    "Source Domain": candidate.source_domain,
+                    "Target URL": candidate.target_url,
+                    "Discovery Source": candidate.discovery_source.value,
+                    "URL Slug": candidate.url_slug,
+                    "Title": candidate.title,
+                    "Primary Heading": candidate.primary_heading,
+                    "Core Metadata": candidate.core_metadata,
+                    "Utility Page Flag": candidate.utility_page_flag,
+                }
+            )
