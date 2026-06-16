@@ -133,19 +133,19 @@ retained with detected keyword evidence and irrelevant pages are discarded.
 
 ### Tests for User Story 3
 
-- [ ] T041 [P] [US3] Add unit tests for exact keyword and close semantic variant matching in `tests/unit/test_relevance.py`
-- [ ] T042 [P] [US3] Add unit tests for utility-page exclusion overriding incidental keyword evidence in `tests/unit/test_utility_exclusions.py`
-- [ ] T043 [P] [US3] Add integration tests for candidate-to-accepted relevance decisions in `tests/integration/test_relevance_flow.py`
+- [X] T041 [P] [US3] Add unit tests for exact keyword and close semantic variant matching in `tests/unit/test_relevance.py`
+- [X] T042 [P] [US3] Add unit tests for utility-page exclusion overriding incidental keyword evidence in `tests/unit/test_utility_exclusions.py`
+- [X] T043 [P] [US3] Add integration tests for candidate-to-accepted relevance decisions in `tests/integration/test_relevance_flow.py`
 
 ### Implementation for User Story 3
 
-- [ ] T044 [US3] Implement primary signal extraction for URL slug, title, primary heading, and core metadata in `src/wldm_url_filter/relevance.py`
-- [ ] T045 [US3] Implement exact keyword and rapidfuzz close-variant matching in `src/wldm_url_filter/relevance.py`
-- [ ] T046 [US3] Implement utility-page exclusion patterns in `src/wldm_url_filter/relevance.py`
-- [ ] T047 [US3] Implement RelevanceDecision scoring from 0 to 100 in `src/wldm_url_filter/relevance.py`
-- [ ] T048 [US3] Preserve strongest RelevanceDecision for duplicate target URLs in `src/wldm_url_filter/relevance.py`
-- [ ] T049 [US3] Wire relevance filtering after candidate discovery and reachability checks in `src/wldm_url_filter/cli.py`
-- [ ] T050 [US3] Add Simplified Chinese diagnostics for rejected pages and matched keyword evidence in `src/wldm_url_filter/relevance.py`
+- [X] T044 [US3] Implement primary signal extraction for URL slug, title, primary heading, and core metadata in `src/wldm_url_filter/relevance.py`
+- [X] T045 [US3] Implement exact keyword and rapidfuzz close-variant matching in `src/wldm_url_filter/relevance.py`
+- [X] T046 [US3] Implement utility-page exclusion patterns in `src/wldm_url_filter/relevance.py`
+- [X] T047 [US3] Implement RelevanceDecision scoring from 0 to 100 in `src/wldm_url_filter/relevance.py`
+- [X] T048 [US3] Preserve strongest RelevanceDecision for duplicate target URLs in `src/wldm_url_filter/relevance.py`
+- [X] T049 [US3] Wire relevance filtering after candidate discovery and reachability checks in `src/wldm_url_filter/cli.py`
+- [X] T050 [US3] Add Simplified Chinese diagnostics for rejected pages and matched keyword evidence in `src/wldm_url_filter/relevance.py`
 
 **Checkpoint**: User Story 3 is independently testable with CandidatePage fixtures and produces AcceptedUrlMatch records.
 
@@ -160,17 +160,17 @@ required columns in order and no duplicate target URLs.
 
 ### Tests for User Story 4
 
-- [ ] T051 [P] [US4] Add unit tests for accepted URL CSV ordering, required values, and duplicate removal in `tests/unit/test_accepted_url_output.py`
-- [ ] T052 [P] [US4] Add contract tests for accepted URL output schema in `tests/contract/test_accepted_url_contract.py`
-- [ ] T053 [P] [US4] Add end-to-end integration test for CLI generation of accepted URL output in `tests/integration/test_cli_output_flow.py`
+- [X] T051 [P] [US4] Add unit tests for accepted URL CSV ordering, required values, and duplicate removal in `tests/unit/test_accepted_url_output.py`
+- [X] T052 [P] [US4] Add contract tests for accepted URL output schema in `tests/contract/test_accepted_url_contract.py`
+- [X] T053 [P] [US4] Add end-to-end integration test for CLI generation of accepted URL output in `tests/integration/test_cli_output_flow.py`
 
 ### Implementation for User Story 4
 
-- [ ] T054 [US4] Implement accepted URL CSV writing with Source Domain, Target URL, Detected Keyword, and Relevance Score in `src/wldm_url_filter/outputs.py`
-- [ ] T055 [US4] Implement final accepted-row deduplication and strongest-evidence preservation in `src/wldm_url_filter/outputs.py`
-- [ ] T056 [US4] Wire accepted URL output generation into CLI run flow in `src/wldm_url_filter/cli.py`
-- [ ] T057 [US4] Add output success and empty-result Simplified Chinese diagnostics in `src/wldm_url_filter/outputs.py`
-- [ ] T058 [US4] Update output validation guidance in `specs/001-url-discovery-filter/quickstart.md`
+- [X] T054 [US4] Implement accepted URL CSV writing with Source Domain, Target URL, Detected Keyword, and Relevance Score in `src/wldm_url_filter/outputs.py`
+- [X] T055 [US4] Implement final accepted-row deduplication and strongest-evidence preservation in `src/wldm_url_filter/outputs.py`
+- [X] T056 [US4] Wire accepted URL output generation into CLI run flow in `src/wldm_url_filter/cli.py`
+- [X] T057 [US4] Add output success and empty-result Simplified Chinese diagnostics in `src/wldm_url_filter/outputs.py`
+- [X] T058 [US4] Update output validation guidance in `specs/001-url-discovery-filter/quickstart.md`
 
 **Checkpoint**: User Story 4 produces the required accepted URL spreadsheet-compatible CSV.
 

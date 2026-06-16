@@ -12,10 +12,12 @@ from wldm_url_filter.logging_config import configure_logging, get_logger
 from wldm_url_filter.models import OptimizationStatus
 from wldm_url_filter.outputs import (
     resolve_run_output_paths,
+    write_accepted_url_matches_csv,
     write_access_reliability_csv,
     write_candidate_pages_csv,
 )
 from wldm_url_filter.reachability import evaluate_reachability
+from wldm_url_filter.relevance import filter_relevant_candidates
 
 app = typer.Typer(
     help="Automated URL discovery and semantic relevance filtering.",
@@ -123,8 +125,22 @@ def run(
         settings=settings,
         requester_accepted_failures=requester_accepted_failures,
     )
+    reachable_urls = {
+        attempt.target_url
+        for attempt in reachability_result.final_attempts
+        if attempt.outcome.value == "success"
+    }
+    reachable_candidates = [
+        candidate
+        for candidate in discovery_result.candidates
+        if candidate.target_url in reachable_urls
+    ]
+    relevance_result = filter_relevant_candidates(reachable_candidates, target_keywords)
+    write_accepted_url_matches_csv(paths.accepted_urls, relevance_result.accepted_matches)
     write_access_reliability_csv(paths.access_reliability, reachability_result.reliability_rows)
     logger.info("访问可靠性检查完成，已写入访问可靠性结果。")
+    logger.info("相关性过滤完成，已保留匹配候选页面。")
+    typer.echo(str(paths.accepted_urls))
     typer.echo(str(paths.access_reliability))
 
     if reachability_result.optimization_status == OptimizationStatus.OPTIMIZE_AGAIN:

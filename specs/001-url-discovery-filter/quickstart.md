@@ -75,7 +75,8 @@ Open `<run-id>_accepted_urls.csv` and verify:
 
 - Columns appear in this order: Source Domain, Target URL, Detected Keyword, Relevance Score.
 - Rows contain accepted URLs only.
-- Duplicate target URLs do not appear more than once.
+- Duplicate target URLs do not appear more than once, and duplicate equivalents keep the strongest relevance
+  evidence.
 - At least 90% of accepted rows in a manual sample are relevant to a target keyword or close semantic variant.
 - At least 90% of accepted rows in a manual sample are deep URLs rather than only source homepages.
 

@@ -3,14 +3,24 @@
 from __future__ import annotations
 
 import csv
+import logging
 import re
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
-from wldm_url_filter.models import AccessReliabilitySummary, CandidatePage
+from wldm_url_filter.config import UnsafeUrlError, normalized_url_key
+from wldm_url_filter.logging_config import log_runtime_diagnostic
+from wldm_url_filter.models import AcceptedUrlMatch, AccessReliabilitySummary, CandidatePage
 
+LOGGER = logging.getLogger(__name__)
 _RUN_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
+ACCEPTED_URL_FIELDNAMES = [
+    "Source Domain",
+    "Target URL",
+    "Detected Keyword",
+    "Relevance Score",
+]
 
 
 @dataclass(frozen=True, slots=True)
@@ -88,6 +98,64 @@ def write_candidate_pages_csv(path: Path, candidates: list[CandidatePage]) -> No
                     "Utility Page Flag": candidate.utility_page_flag,
                 }
             )
+
+
+def deduplicate_accepted_url_matches(
+    matches: list[AcceptedUrlMatch],
+) -> list[AcceptedUrlMatch]:
+    """Remove duplicate accepted target URLs while preserving strongest evidence."""
+    strongest_by_key: dict[str, AcceptedUrlMatch] = {}
+    ordered_keys: list[str] = []
+    for match in matches:
+        try:
+            key = normalized_url_key(match.target_url, allowed_domain=match.source_domain)
+        except UnsafeUrlError:
+            key = match.target_url
+
+        current = strongest_by_key.get(key)
+        if current is None:
+            ordered_keys.append(key)
+            strongest_by_key[key] = match
+            continue
+        if match.relevance_score > current.relevance_score:
+            strongest_by_key[key] = match
+
+    return [strongest_by_key[key] for key in ordered_keys]
+
+
+def accepted_output_diagnostic(path: Path, row_count: int) -> str:
+    """Log and return the accepted URL output diagnostic."""
+    if row_count == 0:
+        return log_runtime_diagnostic(
+            LOGGER,
+            logging.INFO,
+            "没有相关候选页面通过过滤，已写入空结果文件。",
+            {"path": path},
+        )
+    return log_runtime_diagnostic(
+        LOGGER,
+        logging.INFO,
+        "已写入接受网址结果。",
+        {"path": path, "row_count": row_count},
+    )
+
+
+def write_accepted_url_matches_csv(path: Path, matches: list[AcceptedUrlMatch]) -> None:
+    """Write final accepted URL matches to a spreadsheet-compatible CSV."""
+    accepted_matches = deduplicate_accepted_url_matches(matches)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=ACCEPTED_URL_FIELDNAMES)
+        writer.writeheader()
+        for match in accepted_matches:
+            writer.writerow(
+                {
+                    "Source Domain": match.source_domain,
+                    "Target URL": match.target_url,
+                    "Detected Keyword": match.detected_keyword,
+                    "Relevance Score": match.relevance_score,
+                }
+            )
+    accepted_output_diagnostic(path, len(accepted_matches))
 
 
 def write_access_reliability_csv(
