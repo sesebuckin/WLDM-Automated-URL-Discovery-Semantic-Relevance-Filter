@@ -25,6 +25,7 @@ where = ["src"]
 [tool.pytest.ini_options]
 minversion = "8.0"
 testpaths = ["tests"]
+pythonpath = ["src"]
 addopts = [
     "--strict-config",
     "--strict-markers",

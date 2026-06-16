@@ -52,18 +52,18 @@ greater than 80%.
 
 **Critical Requirement**: No user story implementation can begin until this phase is complete.
 
-- [ ] T010 Define SourceDomain, TargetKeyword, CandidatePage, DiscoveryScope, TargetUrlAccessAttempt, RelevanceDecision, AcceptedUrlMatch, AccessReliabilitySummary, and ProcessingSummary models in `src/wldm_url_filter/models.py`
-- [ ] T011 [P] Add unit tests for model validation rules in `tests/unit/test_models.py`
-- [ ] T012 Implement CSV input loading and column inference in `src/wldm_url_filter/ingestion.py`
-- [ ] T013 [P] Add unit tests for domain and keyword CSV ingestion in `tests/unit/test_ingestion.py`
-- [ ] T014 Implement URL normalization, duplicate detection, and unsafe-host rejection in `src/wldm_url_filter/config.py`
-- [ ] T015 [P] Add unit tests for URL safety constraints and SSRF-style rejection in `tests/unit/test_url_safety.py`
-- [ ] T016 Implement Simplified Chinese runtime diagnostic helpers in `src/wldm_url_filter/logging_config.py`
-- [ ] T017 [P] Add tests for Simplified Chinese runtime diagnostics and sensitive-value redaction in `tests/unit/test_logging_config.py`
-- [ ] T018 Implement shared output directory and run-id handling in `src/wldm_url_filter/outputs.py`
-- [ ] T019 [P] Add unit tests for output path creation and run-id handling in `tests/unit/test_outputs_base.py`
-- [ ] T020 Implement CLI argument parsing for `run`, `--domains`, `--keywords`, `--output-dir`, `--requester-accepted-failures`, `--run-id`, and `--min-recall-samples` in `src/wldm_url_filter/cli.py`
-- [ ] T021 [P] Add contract tests for the CLI argument schema in `tests/contract/test_cli_contract.py`
+- [X] T010 Define SourceDomain, TargetKeyword, CandidatePage, DiscoveryScope, TargetUrlAccessAttempt, RelevanceDecision, AcceptedUrlMatch, AccessReliabilitySummary, and ProcessingSummary models in `src/wldm_url_filter/models.py`
+- [X] T011 [P] Add unit tests for model validation rules in `tests/unit/test_models.py`
+- [X] T012 Implement CSV input loading and column inference in `src/wldm_url_filter/ingestion.py`
+- [X] T013 [P] Add unit tests for domain and keyword CSV ingestion in `tests/unit/test_ingestion.py`
+- [X] T014 Implement URL normalization, duplicate detection, and unsafe-host rejection in `src/wldm_url_filter/config.py`
+- [X] T015 [P] Add unit tests for URL safety constraints and SSRF-style rejection in `tests/unit/test_url_safety.py`
+- [X] T016 Implement Simplified Chinese runtime diagnostic helpers in `src/wldm_url_filter/logging_config.py`
+- [X] T017 [P] Add tests for Simplified Chinese runtime diagnostics and sensitive-value redaction in `tests/unit/test_logging_config.py`
+- [X] T018 Implement shared output directory and run-id handling in `src/wldm_url_filter/outputs.py`
+- [X] T019 [P] Add unit tests for output path creation and run-id handling in `tests/unit/test_outputs_base.py`
+- [X] T020 Implement CLI argument parsing for `run`, `--domains`, `--keywords`, `--output-dir`, `--requester-accepted-failures`, `--run-id`, and `--min-recall-samples` in `src/wldm_url_filter/cli.py`
+- [X] T021 [P] Add contract tests for the CLI argument schema in `tests/contract/test_cli_contract.py`
 
 **Checkpoint**: Foundation complete; user stories can now be implemented and tested independently.
 

@@ -5,12 +5,19 @@ from typing import Annotated
 
 import typer
 
+from wldm_url_filter.config import DEFAULT_SETTINGS
 from wldm_url_filter.logging_config import configure_logging, get_logger
+from wldm_url_filter.outputs import resolve_run_output_paths
 
 app = typer.Typer(
     help="Automated URL discovery and semantic relevance filtering.",
     no_args_is_help=True,
 )
+
+
+@app.callback()
+def callback() -> None:
+    """Automated URL discovery and semantic relevance filtering."""
 
 
 @app.command()
@@ -59,25 +66,26 @@ def run(
         typer.Option("--run-id", help="Optional stable run identifier for generated outputs."),
     ] = None,
     min_recall_samples: Annotated[
-        int,
+        int | None,
         typer.Option(
             "--min-recall-samples",
             min=1,
             help="Minimum depth-2 candidate count before skipping depth expansion.",
         ),
-    ] = 1,
+    ] = None,
 ) -> None:
     """Run the URL discovery and relevance filtering pipeline."""
     configure_logging()
     logger = get_logger(__name__)
+    effective_min_recall_samples = min_recall_samples or DEFAULT_SETTINGS.min_recall_samples
+    paths = resolve_run_output_paths(output_dir, run_id)
     logger.info("运行入口已初始化，核心流水线尚未实现。")
 
     _ = domains
     _ = keywords
-    _ = output_dir
     _ = requester_accepted_failures
-    _ = run_id
-    _ = min_recall_samples
+    _ = effective_min_recall_samples
+    _ = paths
 
     raise typer.Exit(code=0)
 
